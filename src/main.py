@@ -1,24 +1,32 @@
-from picamera import PiCamera
-import numpy as np
-import matplotlib.pyplot as plt
+# from picamera import PiCamera
+import os
+import configparser
+import chalk
+from pyfiglet import Figlet
 
-h = 1024 # change this to anything < 2592 (anything over 2000 will likely get a memory error when plotting
-cam_res = (int(h),int(0.75*h)) # keeping the natural 3/4 resolution of the camera
-# we need to round to the nearest 16th and 32nd (requirement for picamera)
-cam_res = (int(16*np.floor(cam_res[1]/16)),int(32*np.floor(cam_res[0]/32)))
-# camera initialization
-cam = PiCamera()
-cam.resolution = (cam_res[1],cam_res[0])
-data = np.empty((cam_res[0],cam_res[1],3),dtype=np.uint8) # preallocate image
-while True:
-    try:
-        cam.capture(data,'rgb') # capture RGB image
-        plt.imshow(data) # plot image
-        # clear data to save memory and prevent overloading of CPU
-        data = np.empty((cam_res[0],cam_res[1],3),dtype=np.uint8)
-        plt.show() # show the image
-        # press enter when ready to take another photo
-        input("Click to save a different plot")
-    # pressing CTRL+C exits the loop
-    except KeyboardInterrupt:
-        break
+f = Figlet(font='slant')
+environment = os.getenv("ACTIVE_PROFILE", "local")
+config = configparser.ConfigParser()
+config.read(f'../resources/application-{environment}.ini')
+
+def init():
+    print(chalk.green(f.renderText('Nettle')))
+    image = None
+
+    if config['DEFAULT']['LoadImage']:
+        print(chalk.blue(f'[INFO] Loading Image from: {config["DEFAULT"]["ImageSource"]}'))
+        if config['DEFAULT']['ImageSource'].upper() == "S3":
+            image = loadS3()
+        else:
+            image = loadLocal()
+
+
+def loadS3():
+    print(chalk.blue("Loading from S3..."))
+
+def loadLocal():
+    print(chalk.blue(f'Loading Local Image from: {config["DEFAULT"]["ImagePath"]}'))
+
+
+if __name__ == "__main__":
+    init()
