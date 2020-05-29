@@ -5,7 +5,7 @@ python:
   - pypy3
 
 env:
-  - DJANGO_VERSION=2.2.6
+  - VERION=0.0.1
 
 install:
   - pip install -r requirements.txt
@@ -13,7 +13,7 @@ install:
   - pip install coveralls
 
 script:
-  - pytest
+  - pytest --path ./tests/test.py
 
 after_success:
   - coveralls
