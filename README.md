@@ -1,5 +1,5 @@
 <p align="center">
-    <img height="75" width="75" src="https://github.com/cbartram/Nettle/blob/master/resources/images/logo.png" alt="logl" />
+    <img height="220" width="160" src="https://github.com/cbartram/Nettle/blob/master/resources/images/logo.png" alt="logl" />
 </p>
 
 # Nettle
