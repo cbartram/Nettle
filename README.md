@@ -1,4 +1,6 @@
-![logo](https://github.com/cbartram/Nettle/blob/master/resources/images/logo.png)
+<p align="center">
+    <img height="75" width="75" src="https://github.com/cbartram/Nettle/blob/master/resources/images/logo.png" alt="logl" />
+</p>
 
 # Nettle
 
