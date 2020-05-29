@@ -1,0 +1,15 @@
+boto3==1.13.19
+botocore==1.16.19
+cycler==0.10.0
+docutils==0.15.2
+jmespath==0.10.0
+kiwisolver==1.2.0
+matplotlib==3.2.1
+numpy==1.18.4
+pychalk==2.0.1
+pyfiglet==0.8.post1
+pyparsing==2.4.7
+python-dateutil==2.8.1
+s3transfer==0.3.3
+six==1.15.0
+urllib3==1.25.9

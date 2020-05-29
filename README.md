@@ -13,10 +13,18 @@ $ git clone https://github.com/cbartram/Nettle.git
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+This project was built to run with Python 3 on the [Raspberry Pi](https://www.raspberrypi.org/). 
+You can get the latest version of Python 3 for your system from [the python downloads](https://www.python.org/downloads/) page.
 
-```
-Give examples
+Although you can run this program locally with a sample image it was designed to be used with the [Raspberry Pi's camera module](https://www.raspberrypi.org/products/camera-module-v2/).
+
+You will also need a set of [Feit Electric](https://www.feit.com/product-category/bulbs/smart-wifi-light-bulb/) or [Philips Hue](https://www2.meethue.com/en-us/bulbs) WiFi enabled lightbulbs.
+More smart lighting brands will be supported in the future. 
+
+Once you have everything setup and connected to your home network you can install the necessary dependencies:
+
+```shell script
+$ pip install -r requirements.txt
 ```
 
 ### Installing
