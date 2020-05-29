@@ -1,5 +1,7 @@
 # Nettle
 
+![PyPI](https://img.shields.io/pypi/v/Nettle)
+
 Raspberry Pi Camera extension which samples an image and updates the rooms lighting to align with the primary 
 colors in the image.
 
