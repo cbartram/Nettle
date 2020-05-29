@@ -1,3 +1,5 @@
+![logo](https://github.com/cbartram/Nettle/blob/master/resources/images/logo.png)
+
 # Nettle
 
 ![PyPI](https://img.shields.io/pypi/v/Nettle)
@@ -26,54 +28,85 @@ Although you can run this program locally with a sample image it was designed to
 You will also need a set of [Feit Electric](https://www.feit.com/product-category/bulbs/smart-wifi-light-bulb/) or [Philips Hue](https://www2.meethue.com/en-us/bulbs) WiFi enabled lightbulbs.
 More smart lighting brands will be supported in the future. 
 
+### Installing
+
+Before installing any dependencies you should create and activate a [virtual environment](https://docs.python.org/3/library/venv.html). This quick
+and simple process helps keep python projects and packages isolated from other system site directories.
+
+```shell script
+$ python3 -m venv venv
+
+# Activate the virtual env in your current bash session
+$ source ./venv/bin/activate
+``` 
+
 Once you have everything setup and connected to your home network you can install the necessary dependencies:
 
 ```shell script
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
-### Installing
+To start the application run:
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+```shell script
+$ python3 ./src/main.py
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Tests are managed with [PyTest](https://docs.pytest.org/en/latest/) and can be run by executing the following
+command in the root directory of this project:
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+```shell script
+$ pytest
 ```
 
-### And coding style tests
+### Integration Tests
 
-Explain what these tests test and why
+There are no integration tests for this project yet.
 
-```
-Give an example
-```
+### Performance Tests
+
+There are no performance tests for this project yet.
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+This project is designed to be deployed using [Docker](https://docker.com). Don't worry if you are unfamiliar with [Docker](https://docker.com) there
+are just a few simple steps to follow to build and deploy an image to your own Raspberry Pi!
 
+### Create Image
+
+First we need to create a new image using the [Dockerfile](https://github.com/cbartram/Nettle/blob/master/Dockerfile). This creates a repeatable template
+that is used to run a container for the chosen version of the software. 
+
+The image is already formatted to use the ARM CPU architecture that runs on Raspberry Pi.
+
+```shell script
+$ docker build . -t nettle:0.0.1
+```
+
+### Push Image
+
+Now we can push the image to [Dockerhub](https://hub.docker.com) where we can easily pull it down onto our Pi.
+
+```shell script
+$ docker push 
+```
+
+###
+
+Finally after SSH'ing into the Raspberry Pi we can pull the image and run the container:
+
+```shell script
+$ docker run --name nettle -d -p 8080:8080 nettle:0.0.1
+```
+
+You can validate the container is deployed and running using:
+
+```shell script
+$ docker ps
+$ docker logs nettle
+```
 ## Built With
 
 * [Python 3](http://www.dropwizard.io/1.0.2/docs/) - The programming language used
