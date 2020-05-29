@@ -53,8 +53,6 @@ def loadS3():
     object.download_fileobj(file_stream)
     return plt.imread(file_stream)
 
-
-
 '''
 Loads an image from the local filesystem
 '''
