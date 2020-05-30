@@ -46,6 +46,6 @@ class Hue:
 	 The color should be a tuple in the order: hue, sat, brightness
 	'''
 	def set_color(self, id, color):
-		payload = json.dumps({ "on": True, "sat": color[2], "bri": color[1], "hue": color[0] })
+		payload = json.dumps({ "on": True, "xy": [color[0], color[1]] })
 		response = requests.put(f'http://{self.bridge_ip}/api/{self.bridge_user}/lights/{id}/state', data=payload)
 		return response.json()
