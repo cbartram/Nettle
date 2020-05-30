@@ -14,6 +14,7 @@ class LoaderFactory:
 	loadPi = False
 
 	def __init__(self, config):
+		self.config = config
 		if config['DEFAULT']['LoadImage'] == 'True':
 			print(chalk.blue(f'[INFO] Loading Image from: {config["DEFAULT"]["ImageSource"]}'))
 			if config['DEFAULT']['ImageSource'].upper() == "S3":
@@ -29,9 +30,9 @@ class LoaderFactory:
 	'''
 	def createLoader(self):
 		if self.loadS3:
-			return S3Loader()
+			return S3Loader(self.config)
 		elif self.loadLocal:
-			return LocalLoader()
+			return LocalLoader(self.config)
 		else:
-			return PiCamLoader()
+			return PiCamLoader(self.config)
 

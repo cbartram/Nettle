@@ -18,25 +18,10 @@ config = configparser.ConfigParser()
 config.read(f'../resources/application-{environment}.ini')
 
 def init():
+    print(chalk.green(f.renderText('Nettle')))
     loader_factory = LoaderFactory(config)
     loader = loader_factory.createLoader()
-
-    print("Using Loader: ", loader.__name__)
-    print()
-
-    print(chalk.green(f.renderText('Nettle')))
-    image = None
-
-    if config['DEFAULT']['LoadImage'] == 'True':
-        print(chalk.blue(f'[INFO] Loading Image from: {config["DEFAULT"]["ImageSource"]}'))
-        if config['DEFAULT']['ImageSource'].upper() == "S3":
-            image = loadS3()
-        else:
-            image = loadLocal()
-    else:
-        print(chalk.blue("[INFO] Using Raspberry Pi Camera module."))
-
-    print(chalk.blue("Plotting image"))
+    image = loader.load()
     plot_image(image)
 
 def to_hex(color):
