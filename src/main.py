@@ -1,35 +1,42 @@
 # from picamera import PiCamera
-import configparser
-import chalk
-from pyfiglet import Figlet
-from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt
-import cv2
-from collections import Counter
 import os
-
-from loader.LoaderFactory import LoaderFactory
+import cv2
+import chalk
+import configparser
+import matplotlib.pyplot as plt
+from pyfiglet import Figlet
 from util.util import to_hex
+from collections import Counter
+from sklearn.cluster import KMeans
+from EnvInterpolation import EnvInterpolation
+from loader.LoaderFactory import LoaderFactory
 
-f = Figlet(font='slant')
-environment = os.getenv("ACTIVE_PROFILE", "local")
-config = configparser.ConfigParser()
-config.read(f'../resources/application-{environment}.ini')
 
+"""
+Initializes the application and sets up configuration. This is the main 
+method which runs the script.
+"""
 def init():
+    # Read configuration and parse env vars from config file
+    f = Figlet(font='slant')
+    environment = os.getenv("ACTIVE_PROFILE", "local")
+    config = configparser.ConfigParser(interpolation=EnvInterpolation())
+    config.read(f'../resources/application-{environment}.ini')
+
     print(chalk.green(f.renderText('Nettle')))
-    loader_factory = LoaderFactory(config)
+
+    print(config['HUE']['BridgeUser'])
+
+    # Create a loader based on the configuration
+    loader_factory = LoaderFactory(config=config)
     loader = loader_factory.createLoader()
+
+    # Load the image appropriately
     image = loader.load()
+
+    # Analyze colors in the image
     colors = get_colors(image, 8, True)
     print(chalk.blue(f'[INFO] Colors in image: {colors}'))
-
-
-def plot_image(image):
-    print("The type of this input is {}".format(type(image)))
-    print("Shape: {}".format(image.shape))
-    get_colors(image, 8, True)
-
 
 '''
 Computes the primary colors that comprise and image and plots them on a Pie chart.
