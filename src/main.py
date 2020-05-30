@@ -10,6 +10,7 @@ from collections import Counter
 from sklearn.cluster import KMeans
 from EnvInterpolation import EnvInterpolation
 from loader.LoaderFactory import LoaderFactory
+from hue.Hue import Hue
 
 
 """
@@ -25,8 +26,6 @@ def init():
 
     print(chalk.green(f.renderText('Nettle')))
 
-    print(config['HUE']['BridgeUser'])
-
     # Create a loader based on the configuration
     loader_factory = LoaderFactory(config=config)
     loader = loader_factory.createLoader()
@@ -35,8 +34,10 @@ def init():
     image = loader.load()
 
     # Analyze colors in the image
-    colors = get_colors(image, 8, True)
+    colors = get_colors(image, 8, False)
     print(chalk.blue(f'[INFO] Colors in image: {colors}'))
+    hue = Hue(config)
+    hue.toggle_light(3, False)
 
 '''
 Computes the primary colors that comprise and image and plots them on a Pie chart.
