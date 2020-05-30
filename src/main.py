@@ -5,13 +5,13 @@ import chalk
 import configparser
 import matplotlib.pyplot as plt
 from pyfiglet import Figlet
-from util.util import to_hex
+from util.util import to_hex, rgb_to_hsl
 from collections import Counter
 from sklearn.cluster import KMeans
 from EnvInterpolation import EnvInterpolation
 from loader.LoaderFactory import LoaderFactory
 from hue.Hue import Hue
-
+import colorsys
 
 """
 Initializes the application and sets up configuration. This is the main 
@@ -26,6 +26,8 @@ def init():
 
     print(chalk.green(f.renderText('Nettle')))
 
+    print(colorsys.rgb_to_hls(255 / 255, 100 / 255, 15 / 255))
+
     # Create a loader based on the configuration
     loader_factory = LoaderFactory(config=config)
     loader = loader_factory.createLoader()
@@ -37,7 +39,9 @@ def init():
     colors = get_colors(image, 8, False)
     print(chalk.blue(f'[INFO] Colors in image: {colors}'))
     hue = Hue(config)
-    hue.toggle_light(3, False)
+
+    hls = colorsys.rgb_to_hls(colors[0][0] / 255, colors[0][1] / 255, colors[0][2] / 255)
+    hue.set_color(7, (hls[0] * 100, hls[1] * 100, hls[2] * 100))
 
 '''
 Computes the primary colors that comprise and image and plots them on a Pie chart.

@@ -36,9 +36,6 @@ class Hue:
 	 Toggles an individual light on or off
 	'''
 	def toggle_light(self, id, on = True):
-		if self.lights[id] == None:
-			raise Exception("There is no light with the id: " + id)
-
 		payload = json.dumps({ "on": on })
 		response = requests.put(f'http://{self.bridge_ip}/api/{self.bridge_user}/lights/{id}/state', data=payload)
 		return response.json()
@@ -49,9 +46,6 @@ class Hue:
 	 The color should be a tuple in the order: hue, sat, brightness
 	'''
 	def set_color(self, id, color):
-		if self.lights[id] == None:
-			raise Exception("There is no light with the id: " + id)
-
-		payload = json.dumps({ "on": True, "sat": color[1], "bri": color[2], "hue": color[0] })
+		payload = json.dumps({ "on": True, "sat": color[2], "bri": color[1], "hue": color[0] })
 		response = requests.put(f'http://{self.bridge_ip}/api/{self.bridge_user}/lights/{id}/state', data=payload)
 		return response.json()
