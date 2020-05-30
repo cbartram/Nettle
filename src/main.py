@@ -1,20 +1,16 @@
 # from picamera import PiCamera
-import os
 import io
-
-import matplotlib.pyplot as plt
 import boto3
 import configparser
 import chalk
 from pyfiglet import Figlet
-
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
-import numpy as np
 import cv2
 from collections import Counter
-from skimage.color import rgb2lab, deltaE_cie76
 import os
+
+from loader.LoaderFactory import LoaderFactory
 
 f = Figlet(font='slant')
 environment = os.getenv("ACTIVE_PROFILE", "local")
@@ -22,6 +18,12 @@ config = configparser.ConfigParser()
 config.read(f'../resources/application-{environment}.ini')
 
 def init():
+    loader_factory = LoaderFactory(config)
+    loader = loader_factory.createLoader()
+
+    print("Using Loader: ", loader.__name__)
+    print()
+
     print(chalk.green(f.renderText('Nettle')))
     image = None
 
@@ -98,7 +100,8 @@ def loadS3():
 
     file_stream = io.StringIO()
     object.download_fileobj(file_stream)
-    return plt.imread(file_stream)
+    image = cv2.imread(file_stream)
+    return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 '''
 Loads an image from the local filesystem
