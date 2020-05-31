@@ -1,9 +1,9 @@
 import os
 import chalk
 import boto3
-import cv2
 import io
 from loader import Loader
+from PIL import Image
 
 class S3Loader(Loader.Loader):
 	def __init__(self, config):
@@ -32,5 +32,5 @@ class S3Loader(Loader.Loader):
 
 		file_stream = io.StringIO()
 		object.download_fileobj(file_stream)
-		image = cv2.imread(file_stream)
-		return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+		image = Image.open(file_stream)
+		return image

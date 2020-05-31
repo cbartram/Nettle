@@ -1,6 +1,5 @@
 # from picamera import PiCamera
 import os
-import cv2
 import chalk
 import configparser
 import matplotlib.pyplot as plt
@@ -13,8 +12,7 @@ from EnvInterpolation import EnvInterpolation
 from loader.LoaderFactory import LoaderFactory
 from hue.Hue import Hue
 from time import sleep
-
-
+import numpy as np
 loader = None
 config = None
 hue = None
@@ -50,7 +48,7 @@ def main(arg):
 
     print(chalk.blue("[INFO] Analyzing Colors..."))
     # Analyze colors in the image
-    colors = get_colors(image, 8, False)
+    colors = get_colors(image, 8, True)
 
     print(chalk.blue("[INFO] Colors: " + str(colors)))
 
@@ -63,7 +61,9 @@ This algorithm uses KMeans clustering to find the most prevalent pixels in an im
 '''
 def get_colors(image, number_of_colors, show_chart):
     # Resize and Reshape the image (KMeans expects a flattened array as input)
-    modified_image = cv2.resize(image, (600, 400), interpolation=cv2.INTER_AREA)
+    # modified_image = cv2.resize(image, (600, 400), interpolation=cv2.INTER_AREA)
+    print(image)
+    modified_image = np.array(image)
     modified_image = modified_image.reshape(modified_image.shape[0] * modified_image.shape[1], 3)
 
     clf = KMeans(n_clusters=number_of_colors)
