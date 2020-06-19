@@ -1,11 +1,20 @@
 language: python
+
+arch:
+  - arm64
+
+os: linux
+
 python:
   - 3.6
   - 3.7
   - pypy3
 
 env:
-  - VERION=0.0.1
+  - VERSION=0.0.1
+
+services:
+  - docker
 
 install:
   - pip install -r requirements.txt
@@ -13,7 +22,7 @@ install:
   - pip install coveralls
 
 script:
-  - pytest --path ./tests/test.py
+  - docker build -t nettle:$VERSION .
 
 after_success:
   - coveralls
