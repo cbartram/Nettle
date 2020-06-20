@@ -14,6 +14,10 @@ env:
 services:
   - docker
 
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
+
 install:
   - pip install --upgrade pip
   - pip install pychalk matplotlib pyfiglet sklearn numpy
