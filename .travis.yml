@@ -4,9 +4,7 @@ arch:
   - arm64
 
 python:
-  - 3.6
   - 3.7
-  - pypy3
 
 env:
   - VERSION=0.0.1
@@ -21,7 +19,7 @@ before_install:
 install:
   - pip install --upgrade pip
   - pip install --upgrade pip setuptools wheel
-  - pip install pychalk matplotlib pyfiglet sklearn numpy
+  - pip install --user pychalk matplotlib pyfiglet sklearn numpy
   - pip install coveralls
 
 script:
