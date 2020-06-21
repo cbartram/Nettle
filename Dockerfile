@@ -6,13 +6,13 @@ EXPOSE 443
 
 # Update APT package cache and
 # Install necessary libs for Python3 dependencies
-RUN apt-get update && apt-get install -y liblapack-dev libblas-dev libatlas-base-dev gfortran
+#RUN apt-get update && apt-get install -y liblapack-dev libblas-dev libatlas-base-dev gfortran
 
 # Ensure pip, setuptools, and wheel is up to date
 RUN pip3 install --index-url https://pypi.python.org/simple/ --upgrade pip setuptools wheel
 
 # Install package dependencies
-RUN pip3 install --index-url=https://pypi.python.org/simple/ pychalk matplotlib pyfiglet sklearn numpy
+RUN pip3 install pychalk matplotlib pyfiglet sklearn numpy
 
 COPY . /app
 WORKDIR /app
