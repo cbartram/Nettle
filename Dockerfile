@@ -1,4 +1,4 @@
-FROM arm32v6/python:3
+FROM arm32v7/python:3.7.7-buster
 MAINTAINER cbartram3@gmail.com
 
 EXPOSE 80
@@ -6,7 +6,7 @@ EXPOSE 443
 
 # Update APT package cache and
 # Install necessary libs for Python3 dependencies
-RUN apt-get update && apt-get install -y libblas-dev liblapack-dev libatlas-base-dev gfortran
+RUN apt-get update && apt-get install -y liblapack-dev libblas-dev libatlas-base-dev gfortran
 
 # Ensure pip, setuptools, and wheel is up to date
 RUN pip3 install --index-url https://pypi.python.org/simple/ --upgrade pip setuptools wheel
