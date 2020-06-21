@@ -2,7 +2,8 @@ FROM hypriot/rpi-python
 
 WORKDIR /usr/src/app
 
-RUN pip install pychalk matplotlib pyfiglet sklearn numpy
+RUN pip install --upgrade pip
+RUN pip install --index-url=https://pypi.python.org/simple/ pychalk matplotlib pyfiglet sklearn numpy
 
 COPY . /app
 WORKDIR /app

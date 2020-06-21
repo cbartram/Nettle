@@ -3,6 +3,7 @@ import os
 import chalk
 import configparser
 import matplotlib.pyplot as plt
+import numpy as np
 from threading import Timer
 from pyfiglet import Figlet
 from util.util import to_hex, rgb_to_xy
@@ -12,7 +13,7 @@ from EnvInterpolation import EnvInterpolation
 from loader.LoaderFactory import LoaderFactory
 from hue.Hue import Hue
 from time import sleep
-import numpy as np
+from _version import __version__
 loader = None
 config = None
 hue = None
@@ -33,6 +34,7 @@ def init():
     config.read(f'../resources/application-{environment}.ini')
 
     print(chalk.green(f.renderText('Nettle')))
+    print(chalk.green(f"v{__version__}"))
 
     # Create a loader based on the configuration
     loader_factory = LoaderFactory(config=config)
