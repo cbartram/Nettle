@@ -6,19 +6,22 @@ arch:
 python:
   - 3.7
 
-addons:
-  apt:
-    packages:
-      - libblas-dev
-      - liblapack-dev
-      - libatlas-base-dev
-      - gfortran
+#addons:
+#  apt:
+#    packages:
+#      - libblas-dev
+#      - liblapack-dev
+#      - libatlas-base-dev
+#      - gfortran
+
+env:
+  - VERSION=0.0.1
 
 services:
   - docker
 
 before_install:
-  - export VERSION=$(python3 - <<< "from _version import __version__;print(__version__);")
+#  - export VERSION=$(python3 - <<< "from _version import __version__;print(__version__);")
   - sudo chown -Rv $USER:$GROUP ~/.cache/pip/wheels
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
