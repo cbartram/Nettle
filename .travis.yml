@@ -7,7 +7,7 @@ python:
   - 3.7
 
 env:
-  - VERSION=$(python3 - <<< "from _version import __version__;print(__version__);"")
+  - VERSION=$(python3 - <<< "from _version import __version__;print(__version__);")
 
 addons:
   apt:
@@ -21,6 +21,7 @@ services:
   - docker
 
 before_install:
+  - export VERSION=$(python3 - <<< "from _version import __version__;print(__version__);")
   - echo $VERSION
   - sudo chown -Rv $USER:$GROUP ~/.cache/pip/wheels
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
