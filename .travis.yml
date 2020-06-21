@@ -9,13 +9,21 @@ python:
 env:
   - VERSION=0.0.1
 
+addons:
+  apt:
+    packages:
+      - libblas-dev
+      - liblapack-dev
+      - libatlas-base-dev
+      - gfortran
+
 services:
   - docker
 
 before_install:
   - sudo chown -Rv $USER:$GROUP ~/.cache/pip/wheels
-  - sudo apt-get update
-  - sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
+#  - sudo apt-get update
+#  - sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
 
 install:
   - pip install --upgrade pip

@@ -1,10 +1,10 @@
-FROM arm32v7/python:3
+FROM hypriot/rpi-python
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install pychalk matplotlib pyfiglet sklearn numpy
 
-COPY . .
+COPY . /app
+WORKDIR /app
 
 CMD [ "python3", "./src/main.py" ]
