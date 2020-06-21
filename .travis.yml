@@ -7,7 +7,7 @@ python:
   - 3.7
 
 env:
-  - VERSION=0.0.1
+  - VERSION=$(python3 - <<< "from _version import __version__; print(__version__)")
 
 addons:
   apt:
@@ -21,14 +21,16 @@ services:
   - docker
 
 before_install:
+  - echo $VERSION
   - sudo chown -Rv $USER:$GROUP ~/.cache/pip/wheels
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #  - sudo apt-get update
 #  - sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
 
 install:
   - pip install --upgrade pip
   - pip install --upgrade pip setuptools wheel
-  - pip install pychalk matplotlib pyfiglet sklearn numpy
+#  - pip install pychalk matplotlib pyfiglet sklearn numpy
   - pip install coveralls
 
 script:
@@ -39,7 +41,7 @@ after_success:
 
 deploy:
   provider: script
-  script: bash docker_push
+  script: docker push nettle:$VERSION
   on:
     branch: master
 
