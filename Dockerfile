@@ -1,4 +1,4 @@
-FROM frankwolf/rpi-python3
+FROM arm32v6/python:3
 MAINTAINER cbartram3@gmail.com
 
 EXPOSE 80
